@@ -2,15 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const SiteController = require('../controllers/site.controller');
-
-
-const secured = (req, res, next) => {
-    if (req.user) {
-      return next();
-    }
-    
-    res.redirect("/login");
-  };
+const secured = require('../middlewares/secured.middleware')
 
 router.get('/', secured, SiteController.index)
 

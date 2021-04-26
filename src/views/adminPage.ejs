@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <title>TDTU Newsfeed</title>
+</head>
+<body>
+    <header class="header">
+        <div class="banner">
+            <div class="header__logo">
+                <img class="header__logo--img" src="https://stdportal.tdtu.edu.vn/Content/images/image.png" alt="TDT logo">
+            </div>
+            <div class="header__banner">
+                <h1>Administration Page</h1>
+            </div>
+            <div class="header__banner--right">
+                
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="grid">
+            <div>
+                <h1>Danh sách phòng khoa</h1>
+            </div>
+
+            <div>
+                <button id="btn-new" class="btn btn-create-faculty">Tạo mới Phòng/Khoa</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                
+                <tbody>
+                    <tr></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <!-- Register falcuty Modal -->
+    <div class="modal modal-register">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal__title">
+                <h2>Create new faculty</h2>
+            </div>
+            <form action="">
+                <div class="form-group">
+                    <label for="facultyName">Tên Phòng/khoa:</label>
+                    <input type="text" name="facultyName" placeholder="Nhập tên khoa...">
+                </div>
+                <div class="form-group">
+                    <label for="username">Tên đăng nhập:</label>
+                    <input type="text" name="username" placeholder="Nhập Tên đăng nhập">
+                </div>
+                <div class="form-group">
+                    <label for="password">Mật khẩu:</label>
+                    <input type="password name="password" placeholder="Nhập Mật khẩu">
+                </div>
+                <div class="form-group">
+                    <label for="categories">Chuyên đề:</label>
+                    <input type="text" name="categories" placeholder="Các chuyên đề phụ trách">
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-confirm-create">Xác nhận</button>
+                    <button class="btn btn-cancel ">Hủy</button>
+                </div>
+                    
+                    
+                
+            </form>
+        </div>
+    </div>
+
+
+    <script src="./javascripts/main.js"></script>
+    
+</body>
+</html>

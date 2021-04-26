@@ -4,15 +4,63 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <title>TDTU Newsfeed</title>
 </head>
 <body>
-    <h1>hello world</h1>
-    <p><%= title %></p>
-    <% if(userProfile) { %>
-        <div>Name: <%= userProfile.displayName %></div>
-    <% } %>
+    <header class="header">
+        <div class="banner">
+            <div class="header__logo">
+                <img class="header__logo--img" src="https://stdportal.tdtu.edu.vn/Content/images/image.png" alt="TDT logo">
+            </div>
+            <div class="header__banner">
+                <img src="https://stdportal.tdtu.edu.vn/Content/images/banner.png" alt="" class="header__banner-img">
+            </div>
+            <div class="header__banner--right">
+                <div class="student-info">
+                    <% if(userProfile) { %>
+                        <a href="#" class="student-info__link"><%= userProfile.name %></a>
+                    <% } else { %> 
+                        <a href="/admin" class="student-info__link info__link"><%= role %></a>
+                    <% } %>
+                </div>
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </header>
 
-    <a href="/logout">Logout</a>
+    
+    
+
+    <form method="post" action="/posts">
+        
+        <input type="text" name="desc" placeholder="bạn đang nghĩ gì thế?">
+        <input type="text" name="image" >
+        <button type="submit">Đăng bài viết</button>
+    </form>
+
+    <% if(posts.length > 0) { %>
+        <% posts.forEach(post => { %>
+            <div class="post-container">
+                <div class="user-info">
+                    <div class="user-info__avatar">
+                        
+                    </div>
+                    <div class="user-info__name"><%= post.owner %></div>
+                </div>
+                <div class="post__desc"><%= post.desc %></div></div>
+                <div class="post__img"></div>
+        
+            </div>
+        
+        <% }) %>
+    <% } else { %>
+    
+        <h1>Nothing here</h1>
+    <% } %>    
+
+
+
+    
 </body>
 </html>

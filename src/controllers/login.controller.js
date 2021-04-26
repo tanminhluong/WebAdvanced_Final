@@ -1,35 +1,78 @@
-require('dotenv').config();
-const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
-const {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, PORT} = process.env;
+const User = require('../models/UserModel');
+const jwt = require('jsonwebtoken');
+const session = require('express-session')
 
-passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: `http://localhost:${PORT}/login/auth/google/callback`
-  },
-  function(accessToken, refreshToken, profile, done) {
-      userProfile=profile;
-      return done(null, userProfile);
-  }
-));
 
 class LoginController{
+
+    // [GET] /login
     main(req, res) {
-        res.render('login')
+        res.render('login');
     }
 
-    auth(req, res) {
+    // [POST] /login
+    userLogin(req, res, next) {
+        const {username, password} = req.body;
+        
+        let account = undefined;
+        User.findOne({username: username})
+        .then(acc => {
+            
+            if(!acc) {
+                
+                throw new Error('User not found')
+               
+            }
+            account = acc
+            return password === acc.password
+
+        })
+        .then(matched => {
+            
+            if(!matched) {
+                throw new Error('Wrong password')
+            }
+
+            const {JWT_SECRET} = process.env;
+
+            jwt.sign({
+                username: account.username,
+                role: account.role,
+                
+            }, JWT_SECRET, {
+                expiresIn: '1h'
+            }, (err, token) => {
+                if(err) throw err
+                req.session.jwtToken = token
+                return res.redirect('/')
+            })
+
+            
+        })
+        .catch(next)
+
        
     }
 
-    authCB( req, res) {
-            // Successful authentication, redirect success.
-            res.redirect('/');
-        }
-       
-       
     
+
+    // [GET] /login/auth/google/callback
+    authCB( req, res) {
+        const {JWT_SECRET} = process.env;
+        
+
+        jwt.sign({
+            name: req.user.name
+            
+        }, JWT_SECRET, {
+            expiresIn: '1h'
+        }, (err, token) => {
+            if(err) throw err
+            req.session.jwtToken = token
+            return res.redirect('/')
+        })
+        
+    }
 }
 
 module.exports = new LoginController();
