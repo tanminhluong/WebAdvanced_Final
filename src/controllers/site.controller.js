@@ -19,6 +19,15 @@ class SiteController {
     
                 .catch(next)
                 break;
+            case 'khoa': 
+                Promise.all([postsQuery])
+                .then(([ posts]) => {
+                    
+                    res.render('home', { userProfile: null,  role: 'admin', posts: posts});
+                })
+
+                .catch(next)
+                break;
             case 'admin':
                 Promise.all([postsQuery])
                 .then(([ posts]) => {

@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       if(err) {
           throw new Error('invalid token')
       }
-      if(data.role === 'admin'){
+      if(data.role === 'admin' || data.role === 'khoa'){
         req.user = data
       }
       next()

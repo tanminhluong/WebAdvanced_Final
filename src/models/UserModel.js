@@ -9,6 +9,8 @@ const UserSchema = new Schema({
     name: {type: String},
     googleId: {type: String},
     role: {type: String},
+    facultyName: {type: String},
+    categories: {type: String},
     
 })
 

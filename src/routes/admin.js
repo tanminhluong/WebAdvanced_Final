@@ -8,6 +8,6 @@ const adSecured = require('../middlewares/adminSecured.middleware')
 
 
 router.get('/', secured, adSecured,  AdminController.index)
-
+router.post('/register', secured, adSecured, AdminController.register)
 
 module.exports = router
