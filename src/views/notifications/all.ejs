@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+
+    <title>Notifications</title>
+</head>
+<body>
+    <header class="header">
+        <div class="banner">
+            <div class="header__logo">
+                <img class="header__logo--img" src="https://stdportal.tdtu.edu.vn/Content/images/image.png" alt="TDT logo">
+            </div>
+            <div class="header__banner">
+                <h1>Thông báo</h1>
+            </div>
+            <div class="header__banner--right">
+                
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <div class="grid">
+            
+        
+                <div class="notification-section">
+                    <% if(notifications) { %>
+                        <% notifications.forEach(noti => { %>
+                            <div class="row">
+                                <div class="notification">
+                                    <div class="notification__title">
+                                        <span class="notification__title--text">
+                                            <%= noti.title %>     
+                                        </span>
+                                    </div>
+                                    <div class="notification__brief">
+                                        <span class="notification__brief--text">
+                                           <%= noti.briefText %> 
+                                        </span>
+                                    </div>
+                                    <div class="notification__footer">
+                                        <div class="footer__detail">
+                                            <a href="/notifications/detail/<%= noti._id %> " class="footer__detail--link">Chi tiết thông báo</a>
+                                        </div>
+                                        <div class="footer__info">
+                                            <div class="footer__info--owner"><%= noti.owner %> </div>
+                                            <div class="footer__info--date">Ngày đăng: <%= noti.createdAt.toLocaleDateString() %></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+            
+                        <% }) %> 
+                    <% } %> 
+                </div>
+        
+                
+        </div>
+       
+    </div>
+</body>
+</html>

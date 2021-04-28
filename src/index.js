@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const session = require('express-session');
 const passport = require('passport');
+const cookieParser = require('cookie-parser');
+const flash = require('express-flash');
 
 const route = require('./routes');
 const db = require('./config/db');
@@ -25,8 +27,13 @@ app.use(express.json());
 app.use(session({
   resave: false,
   saveUninitialized: true,
-  secret: 'SECRET' 
+  secret: 'SECRET' ,
+  cookie: { maxAge: 1000000 }
 }));
+
+app.use(cookieParser('keyboard cat'));
+app.use(flash());
+
 
 app.use(passport.initialize());
 app.use(passport.session());

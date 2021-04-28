@@ -17,7 +17,8 @@ class AdminController {
 
     register(req, res) {
         const formData = req.body;
-
+        formData.fcId = req.body.username.slice(4)
+        
         formData.role = 'khoa'
 
         let newUser = new User(formData )

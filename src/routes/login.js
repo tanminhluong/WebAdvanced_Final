@@ -2,21 +2,25 @@ const express = require('express');
 const router = express.Router();
 require('dotenv').config();
 const passport = require('passport');
-const session = require('express-session')
+
 const GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 const {GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, PORT} = process.env;
 
+
 const loginController = require('../controllers/login.controller')
 const User = require('../models/UserModel')
+const initializePassport = require('../validators/passport-config')
+
+initializePassport(passport)
 
 passport.use(new GoogleStrategy({
     clientID: GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
     callbackURL: `http://localhost:${PORT}/login/auth/google/callback`
   },
-  function(accessToken, refreshToken, profile, done) {
+  function( accessToken, refreshToken, profile, done) {
 	if(profile._json.hd !== 'student.tdtu.edu.vn'){
-		return done(null, false, {message: 'not allow'})
+		return done(null, false)
 
 	}
 	if(profile.id){
@@ -47,13 +51,17 @@ passport.use(new GoogleStrategy({
 
 
 router.get('/', loginController.main);
-router.post('/', loginController.userLogin);
+
+router.post('/',  passport.authenticate('local', {
+	failureRedirect: '/login',
+	failureFlash: true
+}), loginController.userLogin);
 
 router.get('/auth/google',  
         passport.authenticate('google', { scope : ['profile', 'email'] })
 );
 router.get('/auth/google/callback',  
-        passport.authenticate('google', { failureRedirect: '/error' }),
+        passport.authenticate('google', { failureRedirect: '/error', failureFlash: true }),
         loginController.authCB
 );
 

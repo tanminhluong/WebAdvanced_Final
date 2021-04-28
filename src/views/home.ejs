@@ -20,44 +20,65 @@
                 <div class="student-info">
                     <% if(userProfile) { %>
                         <a href="#" class="student-info__link"><%= userProfile.name %></a>
-                    <% } else { %> 
-                        <a href="/admin" class="student-info__link info__link"><%= role %></a>
-                    <% } %>
+                    <% } else if(faculty) { %> 
+                        <a href="/faculty/<%= faculty.fcId %>" class="student-info__link info__link">
+                            <%= faculty.facultyName %> 
+                        </a>
+                    <% } else { %>
+                        <a href="/admin"  class="student-info__link info__link">Admin</a>
+                    <% } %> 
                 </div>
                 <a href="/logout">Logout</a>
             </div>
         </div>
+        
     </header>
 
-    
-    
-
-    <form method="post" action="/posts">
-        
-        <input type="text" name="desc" placeholder="bạn đang nghĩ gì thế?">
-        <input type="text" name="image" >
-        <button type="submit">Đăng bài viết</button>
-    </form>
-
-    <% if(posts.length > 0) { %>
-        <% posts.forEach(post => { %>
-            <div class="post-container">
+    <div class="container">
+        <% if(faculty) { %>
+            <div class="user-section">
                 <div class="user-info">
-                    <div class="user-info__avatar">
-                        
+                    <div class="user-info__name">
+                        Hello, 
+                        <a href="/faculty/<%= faculty.fcId %> "><%= faculty.facultyName %> </a>
                     </div>
-                    <div class="user-info__name"><%= post.owner %></div>
                 </div>
-                <div class="post__desc"><%= post.desc %></div></div>
-                <div class="post__img"></div>
-        
             </div>
+        <% } %> 
         
-        <% }) %>
-    <% } else { %>
+
+        <form method="post" action="/posts">
+        
+            <input type="text" name="desc" placeholder="bạn đang nghĩ gì thế?">
+            <input type="text" name="image" >
+            <button type="submit">Đăng bài viết</button>
+        </form>
+        
+        <a href="/notifications">Xem tất cả thông báo</a>
+
+        <% if(posts.length > 0) { %>
+            <% posts.forEach(post => { %>
+                <div class="post-container">
+                    <div class="user-info">
+                        <div class="user-info__avatar">
+                            
+                        </div>
+                        <div class="user-info__name"><%= post.owner %></div>
+                    </div>
+                    <div class="post__desc"><%= post.desc %></div></div>
+                    <div class="post__img"></div>
+            
+                </div>
+            
+            <% }) %>
+        <% } else { %>
+        
+            <h1>Nothing here</h1>
+        <% } %>    
+    </div>
     
-        <h1>Nothing here</h1>
-    <% } %>    
+
+    
 
 
 

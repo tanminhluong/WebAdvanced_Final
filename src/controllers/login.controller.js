@@ -1,43 +1,27 @@
 const User = require('../models/UserModel');
 const jwt = require('jsonwebtoken');
-const session = require('express-session')
+
 
 
 class LoginController{
 
     // [GET] /login
     main(req, res) {
-        res.render('login');
+        const error = req.flash('error')
+        const message = req.flash('message')
+        
+        res.render('login', {error, message});
     }
 
     // [POST] /login
     userLogin(req, res, next) {
-        const {username, password} = req.body;
-        
-        let account = undefined;
-        User.findOne({username: username})
-        .then(acc => {
             
-            if(!acc) {
-                
-                throw new Error('User not found')
-               
-            }
-            account = acc
-            return password === acc.password
-
-        })
-        .then(matched => {
-            
-            if(!matched) {
-                throw new Error('Wrong password')
-            }
 
             const {JWT_SECRET} = process.env;
 
             jwt.sign({
-                username: account.username,
-                role: account.role,
+                username: req.user.username,
+                
                 
             }, JWT_SECRET, {
                 expiresIn: '1h'
@@ -47,9 +31,10 @@ class LoginController{
                 return res.redirect('/')
             })
 
+            next()
+
             
-        })
-        .catch(next)
+       
 
        
     }

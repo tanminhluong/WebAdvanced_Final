@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     role: {type: String},
     facultyName: {type: String},
     categories: {type: String},
-    
+    fcId: {type: String},
 })
 
 module.exports = mongoose.model('User', UserSchema)

@@ -14,16 +14,17 @@ class SiteController {
                 Promise.all([studentQuery, postsQuery])
                 .then(([student, posts]) => {
                     
-                    res.render('home', {title: "Profile", userProfile: student, posts: posts});
+                    res.render('home', {faculty: null, userProfile: student, posts: posts});
                 })
     
                 .catch(next)
                 break;
             case 'khoa': 
-                Promise.all([postsQuery])
-                .then(([ posts]) => {
+                let facultyQuery = User.findOne({fcId: req.user.fcId})
+                Promise.all([postsQuery, facultyQuery])
+                .then(([ posts, faculty]) => {
                     
-                    res.render('home', { userProfile: null,  role: 'admin', posts: posts});
+                    res.render('home', {userProfile: null, faculty: faculty , posts: posts});
                 })
 
                 .catch(next)
@@ -32,7 +33,7 @@ class SiteController {
                 Promise.all([postsQuery])
                 .then(([ posts]) => {
                     
-                    res.render('home', {title: "Profile", userProfile: null,  role: 'admin', posts: posts});
+                    res.render('home', {title: "Profile", faculty: null,  userProfile: null,  role: 'admin', posts: posts});
                 })
     
                 .catch(next)
