@@ -3,11 +3,11 @@ const router = express.Router();
 
 const FacultyController = require('../controllers/faculty.controller');
 
-const secured = require('../middlewares/secured.middleware')
+const {securedLv1, securedLv2} = require('../middlewares/secured.middleware')
 
 
 
-router.get('/:fcid', secured,   FacultyController.index)
+router.get('/:fcid',  FacultyController.index)
 
 
 module.exports = router

@@ -5,6 +5,8 @@ const session = require('express-session');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const flash = require('express-flash');
+const methodOverride = require('method-override');
+const socketio = require('socket.io');
 
 const route = require('./routes');
 const db = require('./config/db');
@@ -18,6 +20,8 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.use(methodOverride('_method'))
 
 app.use(express.urlencoded({
   extended: false,
@@ -55,6 +59,19 @@ passport.deserializeUser(function(obj, cb) {
 route(app)
 
 const port = process.env.PORT || 9090;
-app.listen(port, () => {
+const httpServer = app.listen(port, () => {
     console.log(`http://localhost:${port}`)
 });
+
+const io = socketio(httpServer)
+
+io.on('connection', socket => {
+  console.log(`socket ${socket.id} đã kết nối`)
+  socket.on('disconnect', () => {
+    console.log(`${socket.id} đã thoát`)
+    // socket.broadcast.emit('user-leave', socket.id)
+  })
+
+  socket.broadcast.emit('new-user', {id: socket.id})
+  
+})

@@ -5,7 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="/stylesheets/style.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js" integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA==" crossorigin="anonymous"></script>
+
+    <script src="https://kit.fontawesome.com/acd9ed5e69.js" crossorigin="anonymous"></script>
 
     <title>Quản lý thông báo</title>
 </head>
@@ -19,6 +24,7 @@
                 <h1>Quản lý Thông báo</h1>
             </div>
             <div class="header__banner--right">
+                <a href="/notifications">Trang thông báo</a>
                 
                 <a href="/logout">Logout</a>
             </div>
@@ -45,10 +51,32 @@
                         <% notifications.forEach(noti => { %>
                             <div class="row">
                                 <div class="notification">
-                                    <div class="notification__title">
-                                        <span class="notification__title--text">
-                                            <%= noti.title %>     
-                                        </span>
+                                    <div class="notification__header">
+                                        <div class="notification__title">
+                                            <span class="notification__title--text">
+                                                <%= noti.title %>     
+                                            </span>
+                                        </div>
+                                        <div class="notification__action">
+                                            <i class="fas fa-ellipsis-h action-icon"></i>
+                                            <ul class="action-menu">
+                                                <li class="action-menu__item">
+                                                    <button data-owner="<%= noti.owner %>"
+                                                            data-title="<%= noti.title %>"
+                                                            data-id="<%= noti._id %>"
+                                                            data-categories="<%= noti.categories %>"
+                                                            data-content="<%= noti.content %>"
+                                                            data-brief-text="<%= noti.briefText %>"
+                                                     class="btn-action btn-update" type="button">Chỉnh sửa
+                                                    
+                                                    </button>
+                                                </li>
+                                                <li class="action-menu__item">
+                                                    <button data-id="<%= noti._id %>" class="btn-action btn-delete" type="button">Xóa</button>
+                                                </li>
+                                            </ul>   
+                                            
+                                        </div>
                                     </div>
                                     <div class="notification__brief">
                                         <span class="notification__brief--text">
@@ -78,7 +106,7 @@
     </div>
 
     <!-- Create new notification -->
-    <div class="modal ">
+    <div class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="modal__title">
@@ -87,7 +115,7 @@
             <form method="post" action="/notifications/<%= faculty.fcId %> ">
                 <div class="form-group">
                     <label for="owner">Người đăng</label>
-                    <input value="" type="text" name="owner" >
+                    <input  value="" type="text" name="owner" >
                 </div>
                 <div class="form-group">
                     <label for="title">Tiêu đề</label>
@@ -109,6 +137,77 @@
                 
                 <div class="modal-footer">
                     <button id="btn-confirm-create" type="submit" class="btn btn-confirm-create">Tạo mới</button>
+                    <button class="btn btn-cancel ">Hủy</button>
+                </div>
+                    
+                    
+                
+            </form>
+        </div>
+    </div>
+
+    <!-- Confirm delete -->
+<div id="confirm-delete-dialog" class="modal fade">
+    <div class="modal-dialog">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Xóa bài viết</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+          Bạn có chắc rằng muốn xóa <strong id="delete-username">Bài viết này</strong>?
+        </div>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button data-id="???" data-name="???" id="btn-delete-confirmed" type="button" class="btn btn-danger">Xóa</button>
+          <button type="button" class="btn btn-dark" data-dismiss="modal">Đóng</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+<!-- End Confirm delete -->
+
+    <form id='delete-noti-form' method="POST" name="delete-course-form"></form>   
+
+
+    <!-- modal update -->
+    <div id="modal-update" class="modal ">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal__title">
+                <h2>Chỉnh sửa thông báo</h2>
+            </div>
+            <form id="noti-update-form" method="post" >
+                <div class="form-group">
+                    <label for="owner">Người đăng</label>
+                    <input id="owner" value="" disabled value="" type="text" name="owner" >
+                </div>
+                <div class="form-group">
+                    <label for="title">Tiêu đề</label>
+                    <input id="title" value="" type="text" value="" name="title" placeholder="Nhập tiêu đề...">
+                </div>
+                <div class="form-group">
+                    <label for="categories">Chuyên mục:</label>
+                    <input id="categories" value="" type="text" name="categories" placeholder="Nhập tên chuyên mục...">
+                </div>
+                <div class="form-group">
+                    <label for="briefText">Tóm tắt:</label>
+                    <input id="briefText" value="" type="text" name="briefText" placeholder="Tóm tắt nội dung...">
+                </div>
+                
+                <div class="form-group">
+                    <label for="content">Nội dung</label>
+                    <textarea id="content" value="" name="content" id="" cols="30" rows="10"></textarea>
+                </div>
+                
+                <div class="modal-footer">
+                    <button data-id="???" id="btn-confirm-update" type="submit" class="btn btn-confirm-create">Cập nhật</button>
                     <button class="btn btn-cancel ">Hủy</button>
                 </div>
                     

@@ -3,11 +3,11 @@ const router = express.Router();
 
 const PostController = require('../controllers/post.controller');
 
-const secured = require('../middlewares/secured.middleware')
+const {securedLv1} = require('../middlewares/secured.middleware')
 
 
 
-router.get('/', secured, PostController.index)
-router.post('/', secured, PostController.createPost)
+router.get('/', securedLv1, PostController.index)
+router.post('/', securedLv1, PostController.createPost)
 
 module.exports = router

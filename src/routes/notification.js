@@ -3,15 +3,21 @@ const router = express.Router();
 
 const NotifyController = require('../controllers/noti.controller');
 
-const secured = require('../middlewares/secured.middleware')
+const {securedLv1} = require('../middlewares/secured.middleware')
 
 
 
-router.get('/', secured, NotifyController.index)
+router.get('/',  NotifyController.index)
 
-router.post('/:fcId', secured, NotifyController.create)
+router.get('/filter', NotifyController.filter)
 
-router.get('/detail/:id', secured, NotifyController.detail)
+router.put('/:id', NotifyController.update)
+
+router.delete('/:id', NotifyController.delete)
+
+router.post('/:fcId', securedLv1, NotifyController.create)
+
+router.get('/detail/:id', securedLv1, NotifyController.detail)
 
 
 module.exports = router

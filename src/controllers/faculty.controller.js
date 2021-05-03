@@ -14,8 +14,6 @@ class FacultyController {
         Promise.all([facultyQuery, notiQuery])
         .then(([faculty, notifications]) => {
            
-            
-            
             res.render('faculty', {
                 faculty: faculty,
                 notifications: multipleMongooseToObject(notifications)
