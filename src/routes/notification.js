@@ -7,7 +7,7 @@ const {securedLv1} = require('../middlewares/secured.middleware')
 
 
 
-router.get('/',  NotifyController.index)
+router.get('/pages/:page',  NotifyController.index)
 
 router.get('/filter', NotifyController.filter)
 

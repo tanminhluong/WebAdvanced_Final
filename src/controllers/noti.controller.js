@@ -5,17 +5,30 @@ const {mongooseToObject} = require('../util/mongoose')
 class NotifyController {
 
     index(req, res, next) {
+
+        let perPage = 10
+        let page = req.params.page || 1
+
         let notiQuery = Notification.find()
+                        .skip((perPage * page) - perPage)
+                        .limit(perPage)
+                        
         let facultyQuery = Faculty.find({role: 'khoa'})
 
         Promise.all([facultyQuery, notiQuery])
         .then(([faculties, notifications]) => {
-            res.render('notifications/all', {
-                notifications,
-                faculties
+            Notification.count().exec( (err, count) => {
+                if(err) return next(err)
+                res.render('notifications/all', {
+                    notifications,
+                    faculties,
+                    current: page,
+                    pages: Math.ceil(count/ perPage)
+                })
             })
+           
         })
-        .catch(err => {})
+        .catch(next)
     }
 
     filter(req, res, next) {
