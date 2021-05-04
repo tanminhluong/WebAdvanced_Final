@@ -7,7 +7,7 @@ const {securedLv1, securedLv2} = require('../middlewares/secured.middleware')
 
 
 
-router.get('/:fcid',  FacultyController.index)
+router.get('/:fcid', securedLv1, securedLv2, FacultyController.index)
 
 
 module.exports = router

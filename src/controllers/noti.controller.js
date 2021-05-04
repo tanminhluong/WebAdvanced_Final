@@ -6,10 +6,13 @@ class NotifyController {
 
     index(req, res, next) {
 
+        
+
         let perPage = 10
         let page = req.params.page || 1
 
         let notiQuery = Notification.find()
+                        .sort({ createdAt: 'desc' })
                         .skip((perPage * page) - perPage)
                         .limit(perPage)
                         
@@ -20,6 +23,7 @@ class NotifyController {
             Notification.count().exec( (err, count) => {
                 if(err) return next(err)
                 res.render('notifications/all', {
+                    currentUser: req.user,
                     notifications,
                     faculties,
                     current: page,
@@ -32,20 +36,30 @@ class NotifyController {
     }
 
     filter(req, res, next) {
-        // if(!req.query.fcId) {
-        //     res.redirect('/notifications')
-        // }
+        let perPage = 10
+        let page = req.params.page || 1
         
         let notiQuery = Notification.find({ownerId: req.query.filter})
+                        .sort({ createdAt: 'desc' })
+                        .skip((perPage * page) - perPage)
+                        .limit(perPage)
         let facultyQuery = Faculty.find({role: 'khoa'})
 
         Promise.all([facultyQuery, notiQuery])
         .then(([faculties, notifications]) => {
             
-            res.render('notifications/all', {
-                notifications,
-                faculties
+            Notification.count().exec( (err, count) => {
+                if(err) return next(err)
+                res.render('notifications/filter', {
+                    filter: req.query.filter,
+                    currentUser: req.user,
+                    notifications,
+                    faculties,
+                    current: page,
+                    pages: Math.ceil(count/ perPage)
+                })
             })
+            
         })
         .catch(err => {})
     }
@@ -86,6 +100,7 @@ class NotifyController {
         .then((notification) => {
             
             res.render('notifications/detail', {
+                currentUser: req.user,
                 notification: mongooseToObject(notification)
             })
         })

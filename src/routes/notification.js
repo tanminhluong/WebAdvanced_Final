@@ -5,15 +5,13 @@ const NotifyController = require('../controllers/noti.controller');
 
 const {securedLv1} = require('../middlewares/secured.middleware')
 
+router.get('/pages/:page', securedLv1,  NotifyController.index)
 
+router.get('/filter/pages/:page', securedLv1, NotifyController.filter)
 
-router.get('/pages/:page',  NotifyController.index)
+router.put('/:id',securedLv1 , NotifyController.update)
 
-router.get('/filter', NotifyController.filter)
-
-router.put('/:id', NotifyController.update)
-
-router.delete('/:id', NotifyController.delete)
+router.delete('/:id', securedLv1, NotifyController.delete)
 
 router.post('/:fcId', securedLv1, NotifyController.create)
 

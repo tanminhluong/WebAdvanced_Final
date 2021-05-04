@@ -57,9 +57,22 @@ if(span) {
 
 //     }
     
-    
-    
 // }
+
+window.onscroll = () => {
+    scrollFunction();
+}
+
+const scrollFunction = () => {
+    if(document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
+        document.getElementById("header").classList.add("scoll-down")
+        document.getElementById("header").style.borderBottom = 'none';
+    } else {
+        document.getElementById("header").classList.remove("scoll-down")
+        document.getElementById("header").style.borderBottom = '3px solid #0061ad';
+
+    }
+}
 
 $(document).click( (e) => {
     if($(e.target) == modal) {
@@ -78,7 +91,7 @@ $('.btn-cancel').click(e => {
 $('#btn-filter').on('click', (e) => {   
     let optionVal = $('#filter-select option:selected').val();
     
-    searchForm.action = '/notifications/filter/' ;
+    searchForm.action = '/notifications/filter/pages/1' ;
     searchForm.submit();
 })
 

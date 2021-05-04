@@ -17,6 +17,9 @@ body {
     background-color: #f3ebf6;
 }
 
+.container {
+    margin-top: 96px;
+}
 
 .grid {
     width: 1200px;
@@ -24,9 +27,6 @@ body {
     margin: 0 auto;
 }
 
-.row {
-    
-}
 
 .btn {
     outline: none;
@@ -133,25 +133,65 @@ body {
 /* header */
 
 /* navbar */
-.header {
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    
     border-bottom: 3px solid #0061ad;
+    width: 100%;
+    transition: 0.4s;
+    z-index: 99;
+}
+
+.scoll-down {
+    background-color: #fff;
+    border-bottom: 1px solid #fff;
 }
 
 .banner {
-    position: relative;
+    
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     padding: 12px 0;
 }
 
 .header__logo {
-    margin-left: 12px;
+    
+    margin-left: 16px;
 }
 
 .header__logo--img {
     
     height: 48px
+}
+
+.header__navbar {
+    
+    display: flex;
+    flex: 1;
+    margin-left: 24px;
+}
+
+.nav-list {
+    display: flex;
+}
+
+.nav-list__item {
+    list-style-type: none;
+    margin-right: 16px;
+    margin-top: 14px;
+}
+
+.nav-list__item--link {
+    display: block;
+    color: var(--primary-color);
+    text-decoration: none;
+    line-height: 1.6;
+    font-size: 20px;
+    font-weight: 600;
 }
 
 .header__banner h1 {
@@ -164,15 +204,15 @@ body {
 
 .header__banner--right {
     padding-top: 16px;
-    margin-right: 12px;
+    margin-right: 16px;
     display: flex;
 }
 
-.student-info {
-    margin-right: 4px;
+.user-info {
+    margin-right: 12px;
 }
 
-.student-info__link {
+.user-info__link {
     line-height: 1.5;
     font-weight: 600;
     color: #0061ad;

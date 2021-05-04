@@ -15,18 +15,35 @@
     <title>Quản lý thông báo</title>
 </head>
 <body>
-    <header class="header">
+    <header id="header scroll-down">
         <div class="banner">
             <div class="header__logo">
-                <img class="header__logo--img" src="https://stdportal.tdtu.edu.vn/Content/images/image.png" alt="TDT logo">
+                <a href="/">
+                    <img class="header__logo--img" src="https://stdportal.tdtu.edu.vn/Content/images/image.png" alt="TDT logo">
+                </a>
             </div>
-            <div class="header__banner">
-                <h1>Quản lý Thông báo</h1>
+            <div class="header__navbar">
+                <ul class="nav-list">
+                    <li class="nav-list__item">
+                        <a href="/" class="nav-list__item--link">Trang chủ</a>
+                    </li>
+                    <li class="nav-list__item">
+                        <a href="/notifications/pages/1" class="nav-list__item--link">Trang Thông báo</a>
+
+                    </li>
+                </ul>
             </div>
             <div class="header__banner--right">
-                <a href="/notifications/pages/1">Trang thông báo</a>
+                <div class="user-info">
+                    <a href="/faculty/<%= faculty.fcId %>" class="user-info__link info__link">
+                        <%= faculty.facultyName %> 
+                    </a>
+                </div>
                 
-                <a href="/logout">Logout</a>
+                <a href="/logout">
+                    Logout
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
             </div>
         </div>
     </header>

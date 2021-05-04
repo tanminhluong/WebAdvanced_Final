@@ -9,7 +9,7 @@ class FacultyController {
 
         const fcId = req.params.fcid
         let facultyQuery = User.findOne({fcId: fcId})
-        let notiQuery = Notification.find({ownerId: fcId})
+        let notiQuery = Notification.find({ownerId: fcId}).sort({createdAt: 'desc'})
 
         Promise.all([facultyQuery, notiQuery])
         .then(([faculty, notifications]) => {
