@@ -1,0 +1,225 @@
+<%- include ("shares/header") %>
+<link rel="stylesheet" href="/css/admin.css">
+    <div>
+        <div class="page-content">
+            <div class="page-content">
+                <div class="bar-add">
+                    <i class="fas fa-home"><a href="#" id="indexPage">
+                            <%= user.name %>
+                        </a> <i class="fas fa-chevron-right"></i>
+                        <button data-owner="<%= user.role %>" id="btn-new-notification"
+                            class="btn btn-create-faculty">Tạo mới phòng ban</button>
+                    </i>
+                </div>
+                <div class="containerABC ">
+                    <table class="table align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Role</th>
+                                <th scope="col">Name </th>
+                                <th scope="col" style="padding-right: -5rem !important;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if(faculties) { %>
+                                <% faculties.forEach((faculty,index)=> { %>
+                                    <tr>
+                                        <th scope="row">
+                                            <%= (index+1) %>
+                                        </th>
+                                        <td>
+                                            <%= faculty.role %>
+                                        </td>
+                                        <td>
+                                            <%= faculty.name %>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-success btn-sm px-3">
+                                                <i data-username="<%= faculty.username %>"
+                                                    data-password="<%= faculty.password %>" data-id="<%= faculty._id %>"
+                                                    data-email="<%= faculty.email %>"
+                                                    data-name="<%= faculty.name %>"
+                                                    id="<%= faculty._id %>" class="fas fa-user-edit"></i>
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm px-3">
+                                                <i id="<%= faculty._id %>" class="fas fa-times user-delete"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <% }) %>
+                                        <% } %>
+                        </tbody>
+                    </table>
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div id="modalUpdateUser" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="containerForm">
+                <form method="post" id="userFacul-update-form">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="facultyName">Tên Phòng/Khoa</label>
+                        </div>
+                        <div class="col-75">
+                            <input id="name" type="text" name="name" placeholder="Nhập tên khoa..." id="hello1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="username">Tên đăng nhập</label>
+                        </div>
+                        <div class="col-75">
+                            <input id="username" type="text" name="username" placeholder="Nhập tên đăng nhập" id="hello2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="password">Mật khẩu</label>
+                        </div>
+                        <div class="col-75">
+                            <input id="password" type="password" name="password" placeholder="Nhập Mật khẩu">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-75">
+                            <input id="email" type="email" name="email" placeholder="Nhập Email">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="categories">Chuyên đề</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" name="categories" placeholder="Các chuyên đề phụ trách">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="categories">Tùy chọn</label>
+                        </div>
+                        <div class="col-75">
+                            <select id="country" name="role">
+                                <option value="cntt">Khoa CNTT</option>
+                                <option value="cait">Khoa Mỹ thuật công nghiệp</option>
+                                <option value="xhnv">Khoa Xã hội nhân văn</option>
+                                <option value="ktct">Khoa Kĩ thuật công trình</option>
+                                <option value="bhld">Khoa bảo hộ lao động</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <button data-id="???" id="btn-confirm-update" type="submit" class="btn btnUpdateUser">Cập
+                            nhật</button>
+                            <a class="btn btn-cancel" data-dismiss="modal">Hủy</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <!-- The Modal -->
+    <div id="modalAddFacul" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="containerForm">
+                <form method="post" action="/admin/register">
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="facultyName">Tên Phòng/Khoa</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" name="name" placeholder="Nhập tên khoa..." id="hello1">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="username">Tên đăng nhập</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" name="username" placeholder="Nhập tên đăng nhập" id="hello2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="password">Mật khẩu</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="password" name="password" placeholder="Nhập Mật khẩu">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="email">Email</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="email" name="email" placeholder="Nhập Email">
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="categories">Chuyên đề</label>
+                        </div>
+                        <div class="col-75">
+                            <input type="text" name="categories" placeholder="Các chuyên đề phụ trách">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-25">
+                            <label for="categories">Tùy chọn</label>
+                        </div>
+                        <div class="col-75">
+                            <select onchange="changeFaculname(this);" id="country" name="role">
+                                <option value="cntt">Khoa CNTT</option>
+                                <option value="cait">Khoa Mỹ thuật công nghiệp</option>
+                                <option value="xhnv">Khoa Xã hội nhân văn</option>
+                                <option value="ktct">Khoa Kĩ thuật công trình</option>
+                                <option value="bhld">Khoa bảo hộ lao động</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="Submit" id="create-PB">
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <div class="modal fade" id="comFirmDeleteUser" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">ARE YOU SURE <strong
+                            style="color: brown;font: bold;font-size: large;">DELETE</strong> THIS</h5>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a type="button" class="btn btn-danger delete-user-yes">YES</a>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
+
+
+    <script src="/js/myjs/adminPageejs.js">
+       
+    </script>
+
+    <%- include ("shares/footer") %>

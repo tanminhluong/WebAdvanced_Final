@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="/css/main.min.css">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/color.css">
+	<link rel="stylesheet" href="/css/responsive.css">
+	<script src="https://kit.fontawesome.com/acd9ed5e69.js" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+	<title>Document</title>
+</head>
+
+<body>
+	<section>
+		<div class="feature-photo">
+			<figure>
+				<img src="<%= user.coverPhoto %>" class="cover-photo" id="cover-photo" style="width: 100%; height: 700px; object-fit: cover;" />
+			</figure>
+
+			<form class="edit-phto" id="form-cover-photo" onsubmit="return false;">
+				<i class="fa fa-camera-retro"></i>
+				<label class="fileContainer">
+					Edit Cover Photo
+					<input type="file" accept="image/*" name="coverPhoto" onchange="uploadCoverPhoto();" required />
+				</label>
+			</form>
+
+			<div class="container-fluid">
+				<div class="row merged">
+					<div class="col-md-2">
+						<div class="user-avatar">
+							<figure>
+
+								<img class="profile-image" id="profile-image" src="<%= user.picture %>"
+									style="width: 100%; height: 150px; object-fit: cover;" />
+
+								<form class="edit-phto" id="form-upload-image" onsubmit="return false;">
+									<i class="fa fa-camera-retro"></i>
+									<label class="fileContainer">
+										Edit Display Photo
+										<input type="file" accept="image/*" name="profileImage"
+											onchange="uploadImage();" required />
+									</label>
+								</form>
+							</figure>
+						</div>
+					</div>
+					<div class="col-md-10">
+						<div class="timeline-info">
+							<ul>
+								<li class="admin-name">
+									<h5 class="user-name" style="padding-top: 20px; padding-bottom: 20px;"></h5>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section>
+		<div class="gap gray-bg">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-md-12">
+						<div class="row" id="page-contents">
+
+							<div class="col-md-3">
+								<%- include ("shares/left-sidebar") %>
+							</div>
+
+							<div class="col-md-6">
+								<div class="central-meta">
+									<div class="editing-info">
+
+										<h5 class="f-title">
+											Thông tin
+										</h5>
+										<button id="updatePro" type="button"
+											class="btn btn-success btn-sm px-3 float-right">
+											<i data-email="<%= user.email %>"
+												data-aboutme="<%= user.aboutme %>"
+												data-city="<%= user.city %>"
+												data-sn="<%= user.sn %>"
+												data-name="<%= user.name %>" class="fas fa-user-edit"></i>
+										</button>
+										<div>
+											<label class="control-label">Họ và tên</label>
+											<p type="text" required class="name">
+												<%= user.name%>
+											</p>
+										</div>
+
+										<br><br>
+
+										<div>
+											<label class="control-label">Email</label>
+											<p class="email">
+												<%= user.email%>
+											</p>
+
+										</div>
+
+										<br><br>
+
+										<div>
+
+											<label class="control-label">Ngày sinh</label>
+											<p type="text" class="dob" placeholder="DD/MM/YYYY">
+												<%= user.sn%>
+											</p>
+										</div>
+
+										<br><br>
+
+										<div>
+
+											<label class="control-label">Thành phố</label>
+											<p type="text" class="city">
+												<%= user.city%>
+											</p>
+
+										</div>
+
+										<br><br>
+
+										<div>
+
+											<label class="control-label">Sơ lược về tôi</label>
+											<p rows="4" class="aboutMe">
+												<%= user.aboutme%>
+											</p>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-3">
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+
+<div id="modalUpdatePro" class="modal">
+	<!-- Modal content -->
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<div class="containerForm">
+			<form method="post" action="/uploadProfileImage/update" id="pro-update-form">
+				<div class="form-group">
+					<input type="text" required id="name" name="name" />
+					<label class="control-label">Họ và tên</label>
+					<i class="mtrl-select"></i>
+				</div>
+
+				<br><br>
+
+				<div class="form-group">
+					<input name="email" id="email" />
+					<label class="control-label">Email</label>
+					<i class="mtrl-select"></i>
+				</div>
+
+				<br><br>
+
+				<div class="form-group">
+					<input type="text" name="sn" id="sn" placeholder="DD/MM/YYYY" />
+					<label class="control-label">Ngày sinh</label>
+					<i class="mtrl-select"></i>
+				</div>
+
+				<br><br>
+
+				<div class="form-group">
+					<input type="text" id="city" name="city" />
+					<label class="control-label">Thành phố</label>
+					<i class="mtrl-select"></i>
+				</div>
+
+				<br><br>
+
+				<div class="form-group">
+					<textarea rows="4" id="aboutMe" name="aboutMe"></textarea>
+					<label class="control-label">Sơ lược về tôi</label>
+					<i class="mtrl-select"></i>
+				</div>
+
+				<button type="submit" class="mtr-btn">
+					<span>Lưu</span>
+				</button>
+			</form>
+		</div>
+	</div>
+
+</div>
+<script>
+	var notiUpdateForm = document.getElementById("pro-update-form");
+	$('.mtr-btn').click((e) => {
+		$('#modalUpdatePro').modal('hide');
+		location.reload();
+	})
+	$('#updatePro').click((e) => {
+		$('#modalUpdatePro').modal('show');
+		const { sn, city, aboutme, email, name } = e.target.dataset
+		$('#sn').val(sn)
+		$('#aboutMe').val(aboutme)
+		$('#city').val(city)
+		$('#email').val(email)
+		$('#name').val(name)
+	})
+	var isUpdateProfile = true;
+	if (isUpdateProfile == true) {
+	}
+	function uploadCoverPhoto(form) {
+		var form = document.getElementById("form-cover-photo");
+		var ajax = new XMLHttpRequest();
+		ajax.open("POST", "/uploadCoverPhoto", true);
+		ajax.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var response = JSON.parse(this.responseText);
+				document.getElementById("cover-photo").setAttribute("src", response.data);
+			}
+		};
+		var formData = new FormData(form);
+		ajax.send(formData);
+		return false;
+	}
+	function uploadImage(form) {
+		var form = document.getElementById("form-upload-image");
+		var ajax = new XMLHttpRequest();
+		ajax.open("POST", "/uploadProfileImage", true);
+		ajax.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+				var response = JSON.parse(this.responseText);
+				document.getElementById("profile-image").setAttribute("src", response.data);
+			}
+		};
+		var formData = new FormData(form);
+		ajax.send(formData);
+		return false;
+	}
+</script>
+
+</html>

@@ -1,0 +1,92 @@
+[{
+  "_id": {
+    "$oid": "60a0be666197e53bbc5b6593"
+  },
+  "caption": "Hôm nay học gì ?",
+  "image": [
+    {
+      "id": "image0",
+      "image": "/images/w.PNG"
+    }
+  ],
+  "video": "",
+  "type": "post",
+  "createdAt": 1621147238386,
+  "likers": [],
+  "comments": [],
+  "shares": [],
+  "user": {
+    "email": "vominhthanh722@gmail.com",
+    "name": "Tran Van A",
+    "role": "student",
+    "profileImage": "/images/r.PNG"
+  }
+},{
+  "_id": {
+    "$oid": "60a0bf046197e53bbc5b6594"
+  },
+  "caption": "Hôm nay ăn gì?",
+  "image": [
+    {
+      "id": "image0",
+      "image": "/images/w.PNG"
+    }
+  ],
+  "video": "",
+  "type": "post",
+  "createdAt": 1621147396037,
+  "likers": [],
+  "comments": [
+    {
+      "_id": {
+        "$oid": "60a0bf276197e53bbc5b6595"
+      },
+      "user": {
+        "email": "toanhuynh@gmail.com",
+        "name": "Khoa Công Nghệ Thông Tin",
+        "profileImage": "/images/icons/favicon.ico"
+      },
+      "comment": "Ăn hết đống bài tập là no thôi !!!!",
+      "createdAt": 1621147431222,
+      "replies": []
+    },
+    {
+      "_id": {
+        "$oid": "60a0bfa86197e53bbc5b6597"
+      },
+      "user": {
+        "email": "ktct@gmail.com",
+        "name": "Khoa kỹ thuật công trình",
+        "profileImage": "/images/Bình luận.PNG"
+      },
+      "comment": "Cố lên nha !",
+      "createdAt": 1621147560013,
+      "replies": []
+    }
+  ],
+  "shares": [],
+  "user": {
+    "email": "m70058158@gmail.com",
+    "name": "Tran Van A",
+    "role": "student",
+    "profileImage": "/images/126301524_133369074917116_2457001786230218563_n.jpg"
+  }
+},{
+  "_id": {
+    "$oid": "60a0c05f6197e53bbc5b659a"
+  },
+  "caption": "Tuyển thành viên !!!",
+  "image": [],
+  "video": "/videos/ubuntu.mp4",
+  "type": "post",
+  "createdAt": 1621147743890,
+  "likers": [],
+  "comments": [],
+  "shares": [],
+  "user": {
+    "email": "ktct@gmail.com",
+    "name": "Khoa kỹ thuật công trình",
+    "role": "ktct",
+    "profileImage": "/images/Bình luận.PNG"
+  }
+}]

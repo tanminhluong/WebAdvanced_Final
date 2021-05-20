@@ -1,0 +1,69 @@
+<%- include ("../shares/header") %>
+    <section>
+        <div class="page-content">
+            <div class="page-content">
+                        <div class="search-form-section">
+                            <div class="bar-add">
+                                <i class="fas fa-home"><a href="/" id="indexPage"> Trang chủ  </a> <i class="fas fa-chevron-right"></i>
+                                <p  id="btn-detail"
+                                    class="btn btn-create-faculty ">Chi tiêt thông báo</p>
+                                </i>
+                            </div>
+                        </div>
+             
+
+                <div class="containerABC">
+                    <div class="grid">
+                        <% if(notification) { %>
+                        <div class="row">
+                            <div class="notification" id="overTB">
+                                        <div  id="middle-TB" >
+                                            <span class="notification__title--text text-Big" >
+                                             <%= notification.title %>                                            
+                                            </span>
+                                        </div>
+                                        <br>
+                                        <div class="footer__info" id="time-detail">
+                                            <div class="footer__info--owner">
+                                                <%= notification.userName %>  
+                                            </div>
+                                            <div class="footer__info--date">Ngày đăng: <%= new
+                                                    Date(notification.createdAt).toLocaleDateString() %>
+                                                    <%= new Date(notification.createdAt).toLocaleTimeString() %>
+                                            </div>
+                                        </div>
+
+                                        <div class="noti-detail__content" id="hi-ST">
+                                            <h2 id="dear-SV">Kính gửi các Anh/Chị sinh viên, </h2> <br/>
+                                             <span id="content-Detail"><%= notification.content %>  </span>
+                                            <br/>
+                                            <h4 id="thank-TB">Thân./. </h4>
+                                        </div>  
+                            </div>
+                           
+                        </div>
+                      
+                                    <% } else { %>
+                                        <div class="empty-alert">Chưa có thông báo nào</div>
+                                        <% } %>
+                    
+                    </div>
+                </div>
+
+                
+            </div>
+
+        </div>
+        </div>
+    </section>
+    <script>
+        $('#filter-select').on('change', function () {
+                  var url = $(this).val(); // get selected value
+                  if (url) { // require a URL
+                      window.location = '/notifications/pagesByFacul/' + url + '/1' // redirect
+                  }
+                  return false;
+              });
+            </script>
+
+    <%- include ("../shares/footer") %>

@@ -1,0 +1,377 @@
+<%- include ("shares/header") %>
+    <div>
+        <div class="page-content">
+            <div class="page-content">
+                <div class="page-content">
+                    <div id="tab-general">
+                        <div class="row mbl">
+                            <div class="col-md-8 col-xs-12">
+                                <div class="portlet box">
+                                    <div id="thongbaotukhoa" class="portlet-header prolet-primary">
+                                        
+                                    </div>
+                                    <div class="portlet-body">
+                                        <% if(user.email != userID){ %>
+                                            <div>
+                                                <div class="feature-photo">
+                                                    <figure>
+                                                        <img src="<%= otherUser.coverPhoto %>" class="cover-photo" id="cover-photo" style="width: 100%; height: 300px; object-fit: cover;" />
+                                                    </figure>
+                                        
+                                                    <div class="container-fluid">
+                                                        <div class="row merged">
+                                                            <div class="col-md-4" style="padding-top: 40px;">
+                                                                <div class="user-avatar">
+                                                                    <figure>
+                                                                        <img class="profile-image" id="profile-image" src="<%= otherUser.picture %>"
+                                                                            style="width: 100%; height: 150px; object-fit: cover;" />
+                                                                    </figure>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="timeline-info">
+                                                                    <ul>
+                                                                        <li class="admin-name">
+                                                                            <h5 class="user-name" style="padding-top: 20px; padding-bottom: 20px;"></h5>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                    
+                                            <div>
+                                                <div class="gap gray-bg">
+                                                    <div class="container-fluid">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="row" id="page-contents">
+                                                                    <div class="col-md-12">
+                                                                        <div class="central-meta">
+                                                                            <div class="editing-info">
+                                        
+                                                                                <h5 class="f-title">
+                                                                                    Thông tin
+                                                                                </h5>
+                                                                                <div>
+                                                                                    <label class="control-label">Tên</label>
+                                                                                    <p type="text" required class="name">
+                                                                                        <%= otherUser.name%>
+                                                                                    </p>
+                                                                                </div>
+                                        
+                                                                                <br><br>
+                                        
+                                                                                <div>
+                                                                                    <label class="control-label">Email</label>
+                                                                                    <p class="email">
+                                                                                        <%= otherUser.email%>
+                                                                                    </p>
+                                        
+                                                                                </div>
+                                        
+                                                                                <br><br>
+                                        
+                                                                                <div>
+                                        
+                                                                                    <label class="control-label">Ngày sinh</label>
+                                                                                    <p type="text" class="dob" placeholder="DD/MM/YYYY">
+                                                                                        <%= otherUser.sn%>
+                                                                                    </p>
+                                                                                </div>
+                                        
+                                                                                <br><br>
+                                        
+                                                                                <div>
+                                        
+                                                                                    <label class="control-label">Thành phố</label>
+                                                                                    <p type="text" class="city">
+                                                                                        <%= otherUser.city%>
+                                                                                    </p>
+                                        
+                                                                                </div>
+                                        
+                                                                                <br><br>
+                                        
+                                                                                <div>
+                                        
+                                                                                    <label class="control-label">Sơ lược về tôi</label>
+                                                                                    <p rows="4" class="aboutMe">
+                                                                                        <%= otherUser.aboutme%>
+                                                                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                        
+                                                                    <div class="col-md-3">
+                                        
+                                                                    </div>
+                                        
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <% }%>
+                                        <div id="post-new">
+
+                                        </div>
+                                        <div id="newsfeed" class="loadmore">
+
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="loading">
+                                <div class="ball">Loangding....</div>
+                            </div>
+                            <div class="col-md-4 col-xs-12" id="page-ann">
+                                <div class="portlet box prolet-primary">
+                                    <div class="portlet-header head-tb-moi">
+                                        <div class="caption text-uppercase">
+                                            <img class="tb-moi" src="/images/new.png">
+                                            &nbsp;&nbsp;Thông báo mới
+
+                                        </div>
+                                        <form id="form_ChuaXem" method="post" action="/ThongBao/Filter">
+                                            <input type="text" name="chk_chuaxem" id="chk_chuaxem" value="1"
+                                                class="hidden">
+                                            <a href="/notifications/pages/1" class="btn-xemtatca" id="XemTatCaTBChuaXem" style="float: right;">
+                                                <u>Xem tất cả</u>
+                                            </a>
+                                            <input name="__RequestVerificationToken" type="hidden"
+                                                value="CfDJ8Iv63oHoQ3pPiXFRSODrE9-a5BWIiiUU_JqFYchSSogTomZc0CaXBXh5GSP-kzK9P5cLvSuJq_P5f6w-UA9tzK8ZkI5tvhSZmFDnyqZZg0EvDXblcuchObQv86dpoxVgCFzYIT6Ym7oCpgWos_lcuyhxrk2lHPxBqPHWlg8aaX3cEFyhFjt_eK4rsoMSmD70pw">
+                                        </form>
+                                    </div>
+                                    <div class="portlet-body div-tb-moi">
+                                        <div class="slimScrollDiv"
+                                            style="position: relative; overflow: hidden; width: 100%; height: 270px;">
+                                            <div class="chat-scroller"
+                                                style="overflow: hidden; width: 100%; height: 270px;">
+                                                <ul class="chats" id="ol_tb_moi" >
+                                                    <% poss.forEach((e)=>{%>
+                                                    <li class="out">
+                                                        <div class="message">
+                                                            <span class="chat-datetime"><%=e.userName%> &nbsp;&nbsp; -
+                                                                09/04/2021</span>
+                                                            <a class="tb-moi-click"
+                                                                href="/notifications/detail/<%=e._id%>"
+                                                                data-id="135709" data-donvi="P03"><span
+                                                                    class="chat-body tieu-de"
+                                                                    title="DANH SÁCH THI KỸ NĂNG THỰC HÀNH CHUYÊN MÔN THÁNG 04/2021"><%=e.title%> </span></a>
+                                                            <span class="chat-body" ><%=e.briefText%> </span>
+                                                        </div>
+                                                    </li>
+                                                    <%})%>
+                                     </ul>
+                                            </div>
+                                            <div class="slimScrollBar"
+                                                style="background: rgb(0, 0, 0); width: 7px; position: absolute; top: 0px; opacity: 0.4; display: none; border-radius: 7px; z-index: 99; right: 1px; height: 482px;">
+                                            </div>
+                                            <div class="slimScrollRail"
+                                                style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-radius: 7px; background: rgb(51, 51, 51); opacity: 0.2; z-index: 90; right: 1px;">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div>
+                                        <div id="zabuto_calendar_9ph">
+                                            <div class="zabuto_calendar" id="zabuto_calendar_9ph">
+                                                <table class="table">
+                                                    <tbody>
+                                                        <tr class="calendar-month-header">
+                                                            <th>
+                                                                <div class="calendar-month-navigation"
+                                                                    id="zabuto_calendar_9ph_nav-prev"><span><span
+                                                                            class="glyphicon glyphicon-chevron-left"></span></span>
+                                                                </div>
+                                                            </th>
+                                                            <th colspan="5" style="text-align: center;"><span>April 2021</span></th>
+                                                            <th>
+                                                                <div class="calendar-month-navigation"
+                                                                    id="zabuto_calendar_9ph_nav-next"><span><span
+                                                                            class="glyphicon glyphicon-chevron-right"></span></span>
+                                                                </div>
+                                                            </th>
+                                                        </tr>
+                                                        <tr class="calendar-dow-header">
+                                                            <th>Mon</th>
+                                                            <th>Tue</th>
+                                                            <th>Wed</th>
+                                                            <th>Thu</th>
+                                                            <th>Fri</th>
+                                                            <th>Sat</th>
+                                                            <th>Sun</th>
+                                                        </tr>
+                                                        <tr class="calendar-dow">
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td></td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-01">
+                                                                <div id="zabuto_calendar_9ph_2021-04-01_day"
+                                                                    class="day">1</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-02">
+                                                                <div id="zabuto_calendar_9ph_2021-04-02_day"
+                                                                    class="day">2</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-03">
+                                                                <div id="zabuto_calendar_9ph_2021-04-03_day"
+                                                                    class="day">3</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-04">
+                                                                <div id="zabuto_calendar_9ph_2021-04-04_day"
+                                                                    class="day">4</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="calendar-dow">
+                                                            <td id="zabuto_calendar_9ph_2021-04-05">
+                                                                <div id="zabuto_calendar_9ph_2021-04-05_day"
+                                                                    class="day">5</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-06">
+                                                                <div id="zabuto_calendar_9ph_2021-04-06_day"
+                                                                    class="day">6</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-07">
+                                                                <div id="zabuto_calendar_9ph_2021-04-07_day"
+                                                                    class="day">7</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-08">
+                                                                <div id="zabuto_calendar_9ph_2021-04-08_day"
+                                                                    class="day">8</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-09">
+                                                                <div id="zabuto_calendar_9ph_2021-04-09_day"
+                                                                    class="day"><span class="badge badge-today">9</span>
+                                                                </div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-10">
+                                                                <div id="zabuto_calendar_9ph_2021-04-10_day"
+                                                                    class="day">10</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-11">
+                                                                <div id="zabuto_calendar_9ph_2021-04-11_day"
+                                                                    class="day">11</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="calendar-dow">
+                                                            <td id="zabuto_calendar_9ph_2021-04-12">
+                                                                <div id="zabuto_calendar_9ph_2021-04-12_day"
+                                                                    class="day">12</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-13">
+                                                                <div id="zabuto_calendar_9ph_2021-04-13_day"
+                                                                    class="day">13</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-14">
+                                                                <div id="zabuto_calendar_9ph_2021-04-14_day"
+                                                                    class="day">14</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-15">
+                                                                <div id="zabuto_calendar_9ph_2021-04-15_day"
+                                                                    class="day">15</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-16">
+                                                                <div id="zabuto_calendar_9ph_2021-04-16_day"
+                                                                    class="day">16</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-17">
+                                                                <div id="zabuto_calendar_9ph_2021-04-17_day"
+                                                                    class="day">17</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-18">
+                                                                <div id="zabuto_calendar_9ph_2021-04-18_day"
+                                                                    class="day">18</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="calendar-dow">
+                                                            <td id="zabuto_calendar_9ph_2021-04-19">
+                                                                <div id="zabuto_calendar_9ph_2021-04-19_day"
+                                                                    class="day">19</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-20">
+                                                                <div id="zabuto_calendar_9ph_2021-04-20_day"
+                                                                    class="day">20</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-21">
+                                                                <div id="zabuto_calendar_9ph_2021-04-21_day"
+                                                                    class="day">21</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-22">
+                                                                <div id="zabuto_calendar_9ph_2021-04-22_day"
+                                                                    class="day">22</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-23">
+                                                                <div id="zabuto_calendar_9ph_2021-04-23_day"
+                                                                    class="day">23</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-24">
+                                                                <div id="zabuto_calendar_9ph_2021-04-24_day"
+                                                                    class="day">24</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-25">
+                                                                <div id="zabuto_calendar_9ph_2021-04-25_day"
+                                                                    class="day">25</div>
+                                                            </td>
+                                                        </tr>
+                                                        <tr class="calendar-dow">
+                                                            <td id="zabuto_calendar_9ph_2021-04-26">
+                                                                <div id="zabuto_calendar_9ph_2021-04-26_day"
+                                                                    class="day">26</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-27">
+                                                                <div id="zabuto_calendar_9ph_2021-04-27_day"
+                                                                    class="day">27</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-28">
+                                                                <div id="zabuto_calendar_9ph_2021-04-28_day"
+                                                                    class="day">28</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-29">
+                                                                <div id="zabuto_calendar_9ph_2021-04-29_day"
+                                                                    class="day">29</div>
+                                                            </td>
+                                                            <td id="zabuto_calendar_9ph_2021-04-30">
+                                                                <div id="zabuto_calendar_9ph_2021-04-30_day"
+                                                                    class="day">30</div>
+                                                            </td>
+                                                            <td></td>
+                                                            <td></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                <div class="legend" id="zabuto_calendar_9ph_legend"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const loading = document.querySelector('.loading');
+        const isMyPage = "<%= isMyPage %>"
+        const listF = [];
+        const imagesWill = [];
+        const video = [];
+        const listImgDel = [];
+        const videoState = [];
+        var userEmail = "<%= user.email %>"
+        var userID = "<%= userID %>"
+        var mainURL = "http://localhost:8080";
+        var months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+    </script>
+    <script src="/js/myjs/indexejs.js"></script>
+    <%- include ("shares/footer") %>

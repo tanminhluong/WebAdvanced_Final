@@ -1,0 +1,207 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" id="html">
+
+<head runat="server">
+    <title>TIeu de</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="cache-control" content="no-cache" />
+    <meta http-equiv="expires" content="Thu, 19 Nov 1900 08:52:00 GMT" />
+    <link rel="shortcut icon" href="/images/icons/logo.ico" />
+
+    <!--Loading bootstrap css-->
+    <link type="text/css" rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:400italic,400,300,700" />
+    
+    <!--Loading style-->
+    <link type="text/css" rel="stylesheet" href="/css/orange-blue.css" class="default-style" />
+    <link type="text/css" rel="stylesheet" href="/css/style-responsive.css" />
+    <link href="/css/custom.min.css" rel="stylesheet" />
+
+
+
+    <script src="/js/jquery-1.10.2.min.js"></script>
+    <script src="/js/jquery-migrate-1.2.1.min.js"></script>
+    
+    <!--core javascript-->
+    <script src="/js/main.js"></script>
+    <!--LOADING SCRIPTS FOR PAGE-->
+    
+    <script src="https://kit.fontawesome.com/acd9ed5e69.js" crossorigin="anonymous"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.min.js'></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <link href="/css/home.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/color.css">
+    <link rel="stylesheet" href="/css/responsive.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/facultyAn.css">
+    <link rel="stylesheet" href="/css/announceAll.css">
+    <script>
+        var socket  =  io();
+    </script>
+</head>
+
+<body style="padding: 0">
+    <% months=["January", "February" , "March" , "April" , "May" , "June" , "July" , "August" , "September" , "October"
+        , "November" , "December" ]; %>
+        <div>
+            <!--BEGIN BACK TO TOP--><a id="totop" href="#"><i class="fa fa-angle-up"></i></a>
+            <!--END BACK TO TOP-->
+            <!--BEGIN TOPBAR-->
+            <div id="header-topbar-option-demo" class="page-header-topbar">
+                <nav id="topbar" role="navigation" style="margin-bottom: 0; z-index: 2;"
+                    class="navbar navbar-default navbar-static-top">
+                    <div class="navbar-header">
+                        <button type="button" data-toggle="collapse" data-target=".sidebar-collapse"
+                            class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span
+                                class="icon-bar"></span><span class="icon-bar"></span>
+                        </button>
+                        <a id="logo" class="navbar-brand" style="padding-top:5px">
+                            <span class="fa fa-rocket"></span>
+                            <span class="logo-text">
+                                <img src="/images/LogoTDTBgWhite.png" class="img-responsive"
+                                    style="height: 40px; margin-left: auto; margin-right: auto; margin-top: 0%" />
+                            </span>
+                            <span style="display: none" class="logo-text-icon">
+                                <img src="/images/icons/logo.ico" class="img-responsive"
+                                    style="margin-left: auto; margin-right: auto; margin-top: 0%" />
+                            </span>
+                        </a>
+                    </div>
+                    <div class="topbar-main" style="background-color:#0067AC !important;">
+                        <a id="menu-toggle" href="#" class="hidden-xs"><i class="fa fa-bars"></i></a>
+                        <span class="hidden-xs"
+                            style="margin-bottom: 50% ; margin-top: 0%; font-size: 2.2em; color: white; font-weight:bold;"></span>
+                        <ul class="nav navbar navbar-top-links navbar-right text-right mbn">
+                            <!--Chaund-->
+                            <li class="dropdown">
+                                <a data-hover="dropdown" href="#" class="dropdown-toggle">
+                                    <i class="fa fa-bell fa-fw"></i><span class="badge badge-green"
+                                        id="data-count">0</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-alerts">
+                                    <li>
+                                        <p>Thông báo mới  (<span id="data-count2">0</span>)</p>
+                                    </li>
+                                    <li>
+                                        <div class="dropdown-slimscroll">
+                                            <ul id="listAlert"></ul>
+                                        </div>
+                                    </li>
+                                    <li class="last">
+
+                                        <a href="/alert" class="text-right">Xem tất cả</a>
+
+
+                                    </li>
+                                </ul>
+                            </li>
+                            <!--Chaund-->
+
+
+                            <li class="dropdown topbar-user">
+                                <a data-hover="dropdown" href="#" class="dropdown-toggle">
+                                    <% if(user) { %>
+                                        <img src="<%= user.picture %>" alt=""
+                                            class="img-responsive img-circle" />&nbsp;<span class="hidden-xs">
+                                            <%= user.name %>
+                                        </span>&nbsp;<span class="caret"></span>
+                                </a>
+
+                                <ul class="dropdown-menu dropdown-user pull-right">
+                                    <li>
+                                        <a href="/logout" class="right-logout" data-hover="tooltip"
+                                            title=""><i class="fa fa-sign-out"></i>Đăng xuất</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <% } %>
+                        </ul>
+                    </div>
+                </nav>
+
+            </div>
+            <!--END TOPBAR-->
+            <div id="wrapper">
+                <!--BEGIN SIDEBAR MENU-->
+                <nav id="sidebar" role="navigation" class="navbar-default navbar-static-side">
+                    <div class="sidebar-collapse menu-scroll">
+                        <ul id="side-menu" class="nav">
+                            <% if(user) { %>
+                                <li class="user-panel">
+
+                                    <div class="thumb">
+
+                                        <img src="<%= user.picture %>" alt="" class="img-circle" />
+                                    </div>
+                                    <div class="info">
+                                        <ul class="list-inline list-unstyled">
+                                            <span>
+                                                <%= user.name.slice(0,10)+'...' %>
+                                            </span>
+
+                                            <li>
+                                                <a href="/logout" data-hover="tooltip" title="Đăng xuất"><i
+                                                        class="fa fa-sign-out"></i></a>
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </li>
+                                <% } %>
+                                <li>
+                                    <a href="/home">
+                                        <i class="fa fa-home"></i>
+                                        <span class="menu-title">Trang chủ</span>
+                                    </a>
+                                </li>
+                                    <% if(role == "admin" ) { %>
+                                        <li>
+                                            <a href="/admin">
+                                                <i class="fa fa-sign-in"></i>
+                                                <span class="menu-title">
+                                                    <%= role %>
+                                                </span>
+                                            </a>
+                                        </li>
+                                        <% } else if(role != "student" ){ %>
+                                            <li>
+                                                <a href="/faculty/<%= user._id %>">
+                                                    <i class="fa fa-sign-in"></i>
+                                                    <span class="menu-title">
+                                                        <%= role %>
+                                                    </span>
+                                                </a>
+                                            </li>
+                                            <% } %>
+                                                <li>
+                                                    <a href="/homePage">
+                                                        <i class="fa fa-sign-in"></i>
+                                                        <span class="menu-title">Bài post của mình</span>
+                                                    </a>
+                                                </li>
+                                                <li>
+                                                    <a href="/myProfile/<%= user.email %>">
+                                                        <i class="fa fa-sign-in"></i>
+                                                        <span class="menu-title">Thông tin cá nhân</span>
+                                                    </a>
+                                                </li>
+                        </ul>
+                    </div>
+                </nav>
+                <!--END SIDEBAR MENU-->
+                <!--BEGIN CHAT FORM-->
+
+                <!--END CHAT FORM-->
+
+
+                <!--Modal review file -->
+
+
+                <!--BEGIN PAGE WRAPPER-->
+                <div id="page-wrapper">
+                    <% mainURL="http://localhost:8080" ; %>

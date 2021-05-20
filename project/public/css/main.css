@@ -1,0 +1,318 @@
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@500;600&display=swap');
+#post-img-preview,
+    #post-video-preview {
+        height: 300px;
+        width: 300px;
+        object-fit: cover;
+    }
+                    .loading {
+                        opacity: 0;
+                        display: flex;
+                        position: fixed;
+                        bottom: 50px;
+                        left: 50%;
+                        transition: opacity .3s ease-in;
+                    }
+
+                    .page-content {
+                        padding-bottom: 100px;
+                    }
+
+                    .loading.show {
+                        opacity: 1;
+                    }
+
+                    .ball {
+                        margin: 5px;
+                        height: 10px;
+                        width: 10px;
+                        animation: jump .5s ease-in infinite;
+                    }
+
+                    .ball:nth-of-type(2) {
+                        animation-delay: 0.1s;
+                    }
+
+                    .ball:nth-of-type(3) {
+                        animation-delay: 0.2s;
+                    }
+
+                    @keyframes jump {
+
+                        0%,
+                        100% {
+                            transform: translateY(0);
+                        }
+
+                        50% {
+                            transform: translateY(-10px);
+                        }
+                    }
+
+*{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+
+body{
+    font-family: 'Raleway', sans-serif;
+    position: relative;
+}
+
+img{
+    width: 100%;
+    display: block;
+}
+
+.container{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+}
+
+.img-container{
+    position: relative;
+}
+
+.content{
+    background: transparent;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 1s ease;
+    color: #fff;
+    opacity: 0;
+}
+
+.img-container:hover .content{
+    opacity: 1;
+    background: tomato;
+}
+
+.zoom-text{
+    width: 80px;
+    height: 80px;
+    background: burlywood;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    transition: transform 0.2s linear;
+}
+
+.content h2{
+    padding: 15px 0;
+}
+
+.zoom-text:hover{
+    cursor: zoom-in;
+    transform: scale(1.1);
+}
+
+/******** js related *******/
+
+.image-view{
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    display: none;
+}
+
+.image-box{
+    width:70vw;
+    height: 80vh;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    /*background: tomato;*/
+    display: none;
+}
+
+#prev-btn, #next-btn{
+    width: 0;
+    height: 0;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: all 0.5s ease;
+    cursor: pointer;
+}
+
+#prev-btn{
+    border-right: 40px solid grey;
+    left: -50px;
+}
+
+#next-btn{
+    border-left: 40px solid grey;
+    right: -50px;
+}
+
+#next-btn:hover, #prev-btn:hover{
+    opacity: 0.6;
+}
+
+/* TEST*/
+.main {
+    max-width: 950px;
+    margin: auto;
+}
+
+.home-slideshow {
+    margin-bottom: 150px;
+}
+
+.home-slideshow img {
+    width: 100%;
+}
+
+.btn-default:hover {
+    opacity: 1 !important;
+}
+
+.caro:hover .btn-default {
+    opacity: 1 !important;
+}
+
+.navbar-static-side {
+    z-index: initial;
+}
+
+/* The Modal (background) */
+.editShow {
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    padding-left: 20rem;
+    padding-right: 30px;
+    padding-bottom: 40px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Edit Content */
+.editShow-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+#comFirmDeleteImgs,
+#comFirmDeleteImgs_Edit {
+    padding-top: 50px;
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.6);
+    /* Black w/ opacity */
+}
+
+/* test css*/
+.notification-section {
+    width: 100%;
+    background-color: #fff;
+    padding: 16px 0 4px;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    box-shadow: 0px 2px 20px 6px rgb(0 0 0 / 15%);
+    border-radius: 4px;
+}
+
+.notification {
+    background-color: #edf7fa;
+    padding: 16px;
+    margin: 0 16px 12px;
+    border-radius: 4px;
+}
+
+.notification__header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+
+}
+
+.action-icon {
+    cursor: pointer;
+}
+
+.action-menu {
+    background-color: #fff;
+    list-style: none;
+    position: absolute;
+    top: 20px;
+    z-index: 1;
+    display: none;
+}
+
+.action-menu:first-child {
+    border-radius: 2px;
+}
+
+.action-menu:last-child {
+    border-radius: 2px;
+}
+.btn-action {
+    background-color: #fff;
+    width: 70px;
+    outline: none;
+    padding: 8px 16px;
+    padding-top: 1px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+.btn-action:hover {
+    background-color: #ddd;
+}
+/****** media queries *******/
+
+@media(max-width: 992px){
+    .container{
+        grid-template-columns: 1fr;
+    }
+
+    .image-box{
+        height: 55vh;
+    }
+}
+
+@media(max-width: 678px){
+    .image-box{
+        height: 40vh;
+    }
+}
+
+@media(max-width: 400px){
+    .image-box{
+        height: 25vh;
+    }
+}
+
